@@ -1,0 +1,125 @@
+# Apache Sling Auditor Configuration
+
+# Scan modes configuration
+scan_modes:
+  quick:
+    max_requests_per_second: 10
+    concurrent_requests: 3
+    checks:
+      - version_detection
+      - basic_auth
+      - critical_vulnerabilities
+  
+  full:
+    max_requests_per_second: 20
+    concurrent_requests: 5
+    checks:
+      - version_detection
+      - authentication
+      - vulnerabilities
+      - exposed_apis
+      - configuration
+      - content_security
+      - jcr_structure
+  
+  stealth:
+    max_requests_per_second: 5
+    concurrent_requests: 2
+    checks:
+      - passive_version_detection
+      - basic_auth
+      - safe_checks
+
+# Paths to check
+paths:
+  core_endpoints:
+    - path: /system/console
+      name: Felix Console
+      severity: critical
+    - path: /crx/explorer/index.jsp
+      name: Content Explorer
+      severity: high
+    - path: /crx/de/index.jsp
+      name: CRXDE Lite
+      severity: critical
+  
+  api_endpoints:
+    - path: /bin/querybuilder.json
+      name: Query Builder API
+      severity: high
+    - path: /.json
+      name: Content API
+      severity: medium
+  
+  sensitive_paths:
+    - path: /etc/keys
+      name: Encryption Keys
+      severity: critical
+    - path: /etc/passwords
+      name: Password Store
+      severity: critical
+    - path: /home/users
+      name: User Data
+      severity: high
+
+# Default credentials to test
+credentials:
+  - username: admin
+    password: admin
+    description: Default Admin
+  - username: author
+    password: author
+    description: Default Author
+  - username: admin
+    password: admin123
+    description: Common Admin Variant
+
+# Known vulnerabilities
+vulnerabilities:
+  CVE-2016-0788:
+    name: Apache Sling XSS
+    path: /bin/wcm/contentfinder/connector/suggestions.json
+    severity: high
+    description: Cross-site scripting vulnerability
+    remediation: Update to latest version
+  
+  CVE-2021-44228:
+    name: Log4Shell
+    path: /system/console/status-slingsettings.json
+    severity: critical
+    description: Remote code execution via Log4j
+    remediation: Update Log4j to version 2.15.0 or higher
+
+# Security checks configuration
+security_checks:
+  authentication:
+    enabled: true
+    timeout: 10
+    retry_count: 3
+  
+  content_security:
+    enabled: true
+    max_depth: 3
+    exclude_paths:
+      - /var/cache
+      - /tmp
+  
+  configuration:
+    enabled: true
+    check_dispatcher: true
+    check_replication: true
+
+# Report configuration
+reporting:
+  formats:
+    - json
+    - html
+    - text
+  include_screenshots: true
+  max_findings_per_category: 100
+  severity_levels:
+    - critical
+    - high
+    - medium
+    - low
+    - info 
