@@ -1,0 +1,106 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+
+scan_results/*
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+.venv
+env.bak/
+venv.bak/
+
+# IDE - VSCode
+.vscode/
+*.code-workspace
+.history
+
+# IDE - PyCharm
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# IDE - Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Scan Results and Reports
+scan_results/
+reports/
+*.log
+*.json
+!config/*.json
+*.html
+*.pdf
+*.csv
+
+# Cache and Temporary files
+.cache/
+.pytest_cache/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+.coverage
+coverage.xml
+htmlcov/
+
+# Profiling
+*.prof
+profile_results/
+
+# Project specific
+wordlists/sling_paths_generated.txt
+config/custom_*.yaml
+*.bak
+*.tmp
+*.temp
+
+# Security and Credentials
+*.pem
+*.key
+*.crt
+*.csr
+*.cer
+*.der
+*.p12
+*.pfx
+credentials.yaml
+secrets.yaml
+auth.json
+
+# Documentation build
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# Backup files
+*.bak
+*~
+*.orig
+*.rej 

@@ -1,0 +1,162 @@
+# Standard Security Headers to Check For
+X-Frame-Options: DENY
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Content-Security-Policy: default-src 'self'
+Referrer-Policy: no-referrer
+Permissions-Policy: geolocation=(), microphone=(), camera=()
+Clear-Site-Data: "cache","cookies","storage"
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Resource-Policy: same-origin
+
+# AEM/Sling Specific Headers
+Server: Apache
+Server: Day-Servlet-Engine/4.1.52
+Server: CQ
+X-Content-Type-Options: nosniff
+X-Adobe-Exp-Cloud: AEM
+X-Powered-By: Adobe Experience Manager
+X-Request-ID: AEM_REQUEST
+Dispatcher: Apache Module/4.3.3
+
+# Authentication Headers to Test
+Authorization: Basic
+Authorization: Bearer
+Authorization: Digest
+X-API-Key
+X-Auth-Token
+X-User-Token
+Cookie: login-token
+Cookie: saml_token
+Cookie: oauth_token
+Cookie: cq-authoring-mode
+Cookie: login-token
+Cookie: adobe_mc
+Cookie: adobe_mc_sdid
+
+# Cache Control Headers
+Cache-Control: no-store, no-cache, must-revalidate
+Cache-Control: private
+Cache-Control: public
+Cache-Control: max-age=0
+Pragma: no-cache
+Expires: 0
+
+# Security Bypass Headers to Test
+X-Forwarded-For: 127.0.0.1
+X-Forwarded-Host: localhost
+X-Original-URL: /admin
+X-Rewrite-URL: /admin
+X-Custom-IP-Authorization: 127.0.0.1
+X-Originating-IP: 127.0.0.1
+X-Remote-IP: 127.0.0.1
+X-Client-IP: 127.0.0.1
+X-Host: localhost
+X-Original-Host: localhost
+True-Client-IP: 127.0.0.1
+
+# Content Negotiation Headers
+Accept: application/json
+Accept: text/html
+Accept: application/xml
+Accept: */*
+Accept-Language: en-US
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
+Content-Type: multipart/form-data
+Content-Type: text/xml
+
+# Custom AEM Headers to Test
+X-Requested-With: XMLHttpRequest
+X-Vhost: author
+X-Vhost: publish
+X-AEM-ContentType: page
+X-CQ-LastModified
+CSRF-Token
+X-CSRF-Token
+X-CQ-Path
+X-CQ-FromPath
+X-CQ-ToPath
+
+# Debug Headers
+X-Debug: true
+X-Debug-Token
+X-Debug-Token-Link
+Debug: true
+Production: false
+Show-Errors: true
+X-CQ-Debug: true
+X-CQ-DisplayMode: edit
+
+# Dispatcher Bypass Headers
+X-Dispatcher-Test
+X-Dispatcher-Force-SSL: on
+X-Dispatcher-Cache-Control: no-cache
+X-Dispatcher-TTL: 0
+X-Dispatcher-Ignore: true
+X-Dispatcher-No-Cache: 1
+
+# Security Test Headers
+X-Override-Status: 200
+X-HTTP-Method-Override: PUT
+X-Method-Override: DELETE
+X-HTTP-Method: POST
+X-JSON-Type: application/json
+X-Requested-With: XMLHttpRequest
+
+# Header Injection Tests
+X-Forwarded-For: 127.0.0.1\r\nX-Forwarded-For: localhost
+Host: example.com\r\nHost: localhost
+Cookie: session=123\r\nCookie: admin=true
+
+# Common Vulnerability Headers
+X-XSS-Protection: 0
+X-Permitted-Cross-Domain-Policies: none
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Access-Control-Expose-Headers: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Headers: *
+
+# Header Value Variations
+# Test these values with different headers
+Values-To-Test:
+  - null
+  - undefined
+  - true
+  - false
+  - 0
+  - 1
+  - -1
+  - []
+  - {}
+  - "javascript:alert(1)"
+  - "<script>alert(1)</script>"
+  - "data:text/html,<script>alert(1)</script>"
+  - "../../../etc/passwd"
+  - "%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd"
+  - "{{7*7}}"
+  - "${7*7}"
+  - "' OR '1'='1"
+
+# Response Headers to Check For
+Response-Headers-To-Check:
+  - X-Dispatcher
+  - X-Vhost
+  - X-Content-Type-Options
+  - X-Frame-Options
+  - X-XSS-Protection
+  - Content-Security-Policy
+  - Server
+  - X-Powered-By
+  - Set-Cookie
+  - WWW-Authenticate
+  - X-CQ-LastModified
+  - Last-Modified
+  - ETag
+  - X-Request-ID
+  - X-Adobe-Exp-Cloud 
